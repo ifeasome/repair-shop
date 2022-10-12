@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Shipment, ShippingUpdate } = require('../../models');
 const crypto = require('crypto');
+const logger = require('../../config/logger');
 
 router.get('/:tracking_number', async (req, res) => {
   try {
@@ -31,9 +32,11 @@ router.post('/', async (req, res) => {
 
     const { rows } = await Shipment.createShipment(newShipmentEntry);
 
+    logger.info(`shipment #${rows[0].id} created`);
+
     res.status(200).json(rows[0]);
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     res.status(err.table ? 400 : 500).end();
   }
 });
