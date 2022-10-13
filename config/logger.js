@@ -1,6 +1,14 @@
-const { createLogger, transports } = require('winston');
+const { createLogger, transports, format } = require('winston');
 
 const logger = createLogger({
+  format: format.combine(
+    format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    format.printf((info) => {
+      return `${info.level}: ${info.message} - ${info.timestamp}`;
+    })
+  ),
   transports: [
     new transports.File({
       level: 'info',
