@@ -42,3 +42,8 @@ app.use(express.static(path.join(__dirname, './public')));
 const server = app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);
 });
+
+process.on('SIGINT', () => {
+  server.close();
+  process.exit(0);
+});
