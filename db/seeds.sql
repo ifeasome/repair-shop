@@ -31,20 +31,4 @@ VALUES
   (NOW() - INTERVAL '7 DAYS', 'In-transit', 'Salem, OR', 6),
   (NOW() + INTERVAL '1 DAYS', 'In-transit', 'Austin, TX', 7);
 
-INSERT INTO platforms (name)
-VALUES ('Android'), ('iOS'), ('Windows');
-
-INSERT INTO models (name, screen_size, platform_id)
-VALUES
-  ('Samsung Galaxy A51', 6.5, 1),
-  ('iPhone 12 Pro Max', 6.7, 2),
-  ('Lumia 950 XL', 5.7, 3);
-
-INSERT INTO devices (condition, notes, model_id)
-VALUES
-  (9, NULL, 1),
-  (7, 'slight crack in screen', 1),
-  (2, 'device won''t turn on', 2),
-  (4, 'screen isn''t damaged but is not responsive to touch', 3);
-
 COMMIT;
