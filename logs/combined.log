@@ -9,3 +9,14 @@ info: ::1 GET /login 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleW
 info: ::1 GET /css/jass.css 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-11 23:01:17
 info: ::1 GET /favicon.ico 404 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-11 23:01:17
 info: ::1 POST /auth/login 302 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-11 23:01:37
+info: ::1 GET /css/jass.css 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:02:34
+info: ::1 GET / 404 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:11
+info: ::1 GET / 404 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:13
+info: ::1 POST /auth/login 302 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 GET /admin 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 GET /css/styles.css 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 GET /js/utils.js 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 GET /js/admin.js 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 GET /api/models 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 GET /api/devices 200 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:09:41
+info: ::1 POST /auth/login 302 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" - 2022-11-26 23:47:46

@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const logger = require('./config/logger');
 const httpProxy = require('http-proxy');
 const proxy = httpProxy.createProxyServer();
+const jwt = require('./utils/jwt');
 
 const routes = require('./controllers');
 const app = express();
@@ -54,6 +55,8 @@ const server = app.listen(PORT, () => {
 });
 
 proxy.on('proxyReq', (proxyReq, req) => {
+
+  proxyReq.setHeader('Authorization', `Bearer ${jwt.sign()}`);
 
   if (req.body) {
     const body = JSON.stringify(req.body);
