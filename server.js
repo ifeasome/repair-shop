@@ -42,16 +42,20 @@ app.use(passport.session());
 app.use(routes);
 app.use(express.static(path.join(__dirname, './public')));
 
-app.all(/\/api\/(devices|models).*/, (req, res) => {
-  proxy.web(req, res, { target: process.env.INVENTORY_API });
-});
-
 app.all('/api/*', (req, res) => {
   proxy.web(req, res, { target: process.env.SHIPPING_API });
 });
 
 const server = app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);
+});
+
+server.on('upgrade', (req, socket, head) => {
+  proxy.ws(req, socket, head, { target: process.env.INVENTORY_API });
+});
+
+proxy.on('proxyReqWs', (req) => {
+  req.setHeader('Authorization', `Bearer ${jwt.sign()}`);
 });
 
 proxy.on('proxyReq', (proxyReq, req) => {
