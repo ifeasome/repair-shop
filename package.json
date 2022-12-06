@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "seed": "psql -U postgres -f db/schema.sql -f db/seeds.sql && node db/seeds.js"
+    "seed": "psql -U postgres -f db/schema.sql && node db/seeds.js",
+    "trace": "node --trace-events-enabled --trace-event-file-pattern logs/node_trace.${rotation}.log server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +16,12 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "passport": "^0.4.1",
+    "http-proxy": "^1.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "winston": "^3.8.2"
   }
 }

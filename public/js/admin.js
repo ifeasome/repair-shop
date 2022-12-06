@@ -27,74 +27,88 @@ const createRow = (device) => {
   return deviceEl;
 };
 
-const getData = async () => {
-  const modelData = await fetch('/api/models').then((res) => res.json());
-  const modelSelect = deviceForm.querySelector('[name="model_id"]');
+// connect to inventory service
+const socket = new WebSocket(`ws://${location.host}`);
 
-  for (model of modelData) {
-    const modelOption = document.createElement('option');
-    modelOption.value = model.id;
-    modelOption.textContent = model.name;
+socket.addEventListener('message', (res) => {
+  const { type, payload } = JSON.parse(res.data);
 
-    modelSelect.appendChild(modelOption);
+  switch(type) {
+    case 'all-models':
+      const modelSelect = deviceForm.querySelector('[name="model_id"]');
+
+      for (model of payload) {
+        const modelOption = document.createElement('option');
+        modelOption.value = model.id;
+        modelOption.textContent = model.name;
+
+        modelSelect.appendChild(modelOption);
+      }
+
+      break;
+    case 'all-devices':      
+      for (device of payload) {
+        const newDeviceRow = createRow(device);
+
+        deviceList.appendChild(newDeviceRow);
+      }
+
+      break;
+    case 'add-device':
+      const newDeviceRow = createRow(payload);
+      deviceList.prepend(newDeviceRow);
+      break;
+    case 'remove-device':
+      const deviceRow = document.querySelector(`tr[data-id="${payload.id}"]`);
+      deviceList.removeChild(deviceRow);
+      break;
+    case 'update-device':
+      const deviceNotes = document.querySelector(`textarea[data-id="${payload.id}"]`);
+      deviceNotes.value = payload.notes;
+      break;
   }
-  
-  const deviceData = await fetch('/api/devices').then((res) => res.json());
-  
-  for (device of deviceData) {
-    const newDeviceRow = createRow(device);
-
-    deviceList.appendChild(newDeviceRow);
-  }
-};
+});
 
 deviceList.addEventListener('click', (event) => {
   if (event.target.getAttribute('data-type') === 'remove') {
-    const id = event.target.getAttribute('data-id');
-
-    fetch(`/api/devices/${id}`, { method: 'DELETE' });
-
-    deviceList.removeChild(document.querySelector(`tr[data-id="${id}"]`));
+    socket.send(
+      JSON.stringify({
+        type: 'remove-device',
+        payload: { id: event.target.getAttribute('data-id') }
+      })
+    );
   }
 });
 
 deviceList.addEventListener('change', (event) => {
   if (event.target.getAttribute('data-type') === 'update') {
-    const id = event.target.getAttribute('data-id');
-
-    fetch(`/api/devices/${id}`, { 
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        notes: event.target.value
+    socket.send(
+      JSON.stringify({
+        type: 'update-device',
+        payload: { 
+          id: event.target.getAttribute('data-id'),
+          notes: event.target.value
+        }
       })
-    });
+    );
   }
 });
 
-deviceForm.addEventListener('submit', async (event) => {
+deviceForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
   const formData = new FormData(deviceForm);
-
-  const response = await fetch('/api/devices', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model_id: formData.get('model_id'),
-      condition: formData.get('condition'),
-      notes: formData.get('notes')
-    })
-  });
   
-  const newDeviceRow = createRow(await response.json());
-  deviceList.prepend(newDeviceRow);
+  socket.send(
+    JSON.stringify({
+      type: 'add-device',
+      payload: {
+        model_id: formData.get('model_id'),
+        condition: formData.get('condition'),
+        notes: formData.get('notes')
+      }
+    })
+  );
 
   deviceForm.reset();
 });
-
-getData();
